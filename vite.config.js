@@ -4,7 +4,18 @@ import process from "process";
 
 // https://vite.dev/config/
 export default defineConfig({
-  // server: { open: true },
   base: process.env.NODE_ENV === "production" ? "/react05/" : "/",
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (/\.css$/.test(assetInfo.name)) {
+            return "assets/[name]-[hash][extname]";
+          }
+          return "assets/[name]-[hash][extname]";
+        },
+      },
+    },
+  },
 });
